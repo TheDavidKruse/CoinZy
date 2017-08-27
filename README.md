@@ -38,13 +38,13 @@ Your app should:
 * Must contain server routes handling CRUD.
 * Must use a front end framework (AngularJS, Angular2/4, React, Vue, etc.)
 * Must use client side routing(ui-router, react-router, etc.)
-* Must contain parent/child components and pass data/functions down from parent component to child component.
+* Must contain parent/child components and pass data/functions down from parent component to child component, unless you use Redux/Vuex/etc.
 * If any version of Angular is used, it must contain services.
 
 #### STRETCH GOALS:
 * Use Authentication (Login/Logout)
 * Use some significant technology that was not covered in the program. This is not required, though. Examples include:
-    * Using Ember, Angular 2, React/Flux etc. on the front-end instead of Angular 1.6
+    * Using Ember, Angular 4, AngularJS, Vue, etc. on the front-end instead of Angular 1.6
     * Making a native mobile app using a wrapper like ionic framework/React Native/PhoneGap/Cordova etc.
     * Making a desktop app with [Electron](http://electron.atom.io/)/[React Native Desktop](https://github.com/ptmt/react-native-desktop) etc.
     * Integrating a physical device/sensor/internet of things
@@ -58,6 +58,7 @@ Your app should:
 ## Make a video highlighting the functionality of your app
 
 * Make a 3-6 minute video explaining your project and demonstrating its features
+* Due by Sunday 9/3
 
 <a id="write-up"></a>
 
