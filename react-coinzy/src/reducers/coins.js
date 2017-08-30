@@ -20,6 +20,11 @@ export default (state = initialState, action) => {
       })
       Object.assign(state[x],action.payload)
       return [...state]
+
+      case 'filter':
+      console.log('filater',action.payload)
+      return state.filter((e,i,a) => e.long.includes(action.payload))
+
     default:
     console.log('DEFAULTED')
       return state;

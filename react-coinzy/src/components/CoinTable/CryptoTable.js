@@ -11,12 +11,16 @@ class CryptoTable extends Component {
   constructor(){
     super()
     this.state={
-      x:40
+      x:40,
+      search:''
     }
+
   }
   componentDidMount(){
     let self = this;
-    window.addEventListener('scroll', self.handleScroll.bind(self));
+    self.onInputChange= self.onInputChange.bind(self)
+    window.addEventListener('scroll', self.handleScrollDown.bind(self));
+    window.addEventListener('scroll', self.handleScrollUp.bind(self));
     this.props.coinActions.fetchCoins();
     var crypto = io.connect('http://socket.coincap.io');
     crypto.on('connection',function(socket){
@@ -34,22 +38,41 @@ class CryptoTable extends Component {
   }
 
   componentWillUnmount(){
-    window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener('scroll', this.handleScrollDown);
+}
+onInputChange(e){
+  if(e.target.value.length >= 1){
+    this.props.coinActions.filterCoin(e.target.value)
+  }else{
+    this.props.coinActions.fetchCoins();
+  }
 }
 
- handleScroll(e,state){
+ handleScrollDown(e,state){
    if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
      this.setState({
-       x:this.state.x+ 40
+       x:this.state.x+20
      })
-     console.log('x',this.state.x)
+     console.log('x',this.state.x,'y',this.state.y)
+   }
+ }
+
+ handleScrollUp(e,state){
+   if (document.body.scrollTop === 0) {
+     this.setState({
+       x:this.state.x=41
+     })
+
+     console.log('x',this.state.x,'y',this.state.y)
    }
  }
   render () {
-    let splitCoins = this.props.coins.slice(0,this.state.x);
+    let splitCoins = this.props.coins.slice(this.state.y,this.state.x);
     let mappedCoins = splitCoins.map((coin,index) => <Coin key={index} coin={coin}/>)
     return (
-      <div><table className="table table-hover ">
+      <div>
+      <input type="text" placeholder="Search Currencies" onChange={this.onInputChange}/>
+      <table className="table table-hover ">
   <thead>
     <tr>
       <th>Name</th>
