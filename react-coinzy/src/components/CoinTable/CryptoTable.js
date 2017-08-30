@@ -8,8 +8,15 @@ const socket = io();
 
 
 class CryptoTable extends Component {
+  constructor(){
+    super()
+    this.state={
+      x:40
+    }
+  }
   componentDidMount(){
     let self = this;
+    window.addEventListener('scroll', self.handleScroll.bind(self));
     this.props.coinActions.fetchCoins();
     var crypto = io.connect('http://socket.coincap.io');
     crypto.on('connection',function(socket){
@@ -23,23 +30,24 @@ class CryptoTable extends Component {
     })
   })
     crypto.on('global', function (globalMsg) {
-    console.log('glaobal',globalMsg);
     })
   }
 
+  componentWillUnmount(){
+    window.removeEventListener('scroll', this.handleScroll);
+}
+
+ handleScroll(e,state){
+   if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
+     this.setState({
+       x:this.state.x+ 40
+     })
+     console.log('x',this.state.x)
+   }
+ }
   render () {
-    console.log('props',this.props);
-    let mappedCoins = this.props.coins.map((coin,index) => {
-    return( <tr key={index}>
-       <td>{coin.long} ({coin.short})</td>
-      <td>${coin.mktcap}</td>
-      <td>{coin.vwapData}</td>
-      <td>${coin.price}</td>
-      <td>{coin.supply}</td>
-      <td>{coin.usdVolume}</td>
-      <td>%{coin.perc}</td>
-      </tr>
-    )})
+    let splitCoins = this.props.coins.slice(0,this.state.x);
+    let mappedCoins = splitCoins.map((coin,index) => <Coin key={index} coin={coin}/>)
     return (
       <div><table className="table table-hover ">
   <thead>
@@ -62,7 +70,6 @@ class CryptoTable extends Component {
 }
 
 let mapStateToProps = (state, props) => {
-  console.log('state',state)
   return {
     coins: state.coins
   }

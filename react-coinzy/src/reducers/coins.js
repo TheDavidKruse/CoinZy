@@ -15,7 +15,6 @@ export default (state = initialState, action) => {
       return state;
 
       case 'change':
-      console.log('changed coin',action.payload);
       var x = state.findIndex(function(e,i,a){
         return e.short === action.payload.short
       })
