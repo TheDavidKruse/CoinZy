@@ -3,11 +3,11 @@ let initialState = [];
 export default (state = initialState, action) => {
   switch (action.type) {
     case 'FETCH_COINS_PENDING':
-      console.log('Pending request...');
+      console.log('Pending coin request...');
       return state;
 
     case 'FETCH_COINS_FULFILLED':
-      console.log('Fullfilled request!', action.payload);
+      console.log('Fullfilled coin request!', action.payload);
       return [...action.payload.data];
 
     case 'FETCH_COINS_REJECTED':
@@ -26,7 +26,7 @@ export default (state = initialState, action) => {
       return state.filter((e,i,a) => e.long.includes(action.payload))
 
     default:
-    console.log('DEFAULTED')
+    console.log('DEFAULTED COINS')
       return state;
   }
 }
