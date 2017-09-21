@@ -26,8 +26,9 @@ class App extends Component {
             <div className="col-md-10">
             <Route path='/coins' component={CryptoTable}/>
             </div>
+                        <Route exact path='/login' component={Login}/>
             <div className="col-md-2">
-            <Route exact path='/login' component={Login}/>
+
             <Route path='/coins' component={Chat}/>
             </div>
           </div>

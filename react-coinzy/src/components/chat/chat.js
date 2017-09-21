@@ -22,7 +22,6 @@ class Chat extends Component {
 
   componentDidMount(){
     console.log('how does this work',this)
-    this.props.messageActions.fetchMessages();
     this._handleMessageEvent()
 
   }

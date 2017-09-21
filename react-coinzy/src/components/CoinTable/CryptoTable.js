@@ -29,7 +29,7 @@ class CryptoTable extends Component {
   crypto.on('trades', function (tradeMsg) {
     var x = self.props.coins.find(function(e){
       if (e.short === tradeMsg.coin){
-        self.props.coinActions.changeCoin(tradeMsg.msg)
+        self.props.coinActions.changeCoin(tradeMsg.msg);
       }
     })
   })
@@ -53,7 +53,6 @@ onInputChange(e){
      this.setState({
        x:this.state.x+20
      })
-     console.log('x',this.state.x,'y',this.state.y)
    }
  }
 
@@ -62,8 +61,6 @@ onInputChange(e){
      this.setState({
        x:this.state.x=41
      })
-
-     console.log('x',this.state.x,'y',this.state.y)
    }
  }
   render () {

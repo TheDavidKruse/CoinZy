@@ -46,6 +46,7 @@ router.post('/messages',function(req,res){
   .insert({
     message:req.body.message,
     user_id:req.body.user_id
+  }).then(function(result){
   })
 })
 
