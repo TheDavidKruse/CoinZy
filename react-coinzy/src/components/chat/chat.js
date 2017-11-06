@@ -21,13 +21,11 @@ class Chat extends Component {
 
 
   componentDidMount(){
-    console.log('how does this work',this)
     this._handleMessageEvent()
 
   }
 
   _handleMessageEvent(){
-    console.log('hello')
     chat.on('chat message', (inboundMessage) => {
       console.log("inbound message",inboundMessage)
       this.props.messageActions.AppendMessage(inboundMessage)
@@ -53,8 +51,8 @@ let mappedMessages = this.props.messages.map(message => {
         <li>{message.username} : {message.message}</li>
       )
 })
-    console.log('messages',this.props)
     return (
+      <div>
       <div style={{position:'fixed'}}>
       <ul id="messages" style={{listStyleType: 'none', margin: '0px', padding:'0px',overflowY:'scroll', height:'500px'}}>{mappedMessages}</ul>
     <form onSubmit={this.onChange}>
@@ -62,12 +60,12 @@ let mappedMessages = this.props.messages.map(message => {
       <button onClick={this.handleOnSubmit}>Send</button>
     </form>
       </div>
+      </div>
     )
   }
 }
 
 let mapStateToProps = (state, props) => {
-  console.log('state',state)
   return {
     messages: state.chat
   }

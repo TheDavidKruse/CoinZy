@@ -4,6 +4,7 @@ import './App.css';
 import CryptoTable from './components/CoinTable/CryptoTable';
 import Nav from './components/nav/navbar';
 import Login from './components/login/login';
+import 'bootstrap/dist/css/bootstrap.css';
 import Chat from './components/chat/chat'
 import {
   BrowserRouter as Router,
@@ -26,10 +27,10 @@ class App extends Component {
             <div className="col-md-10">
             <Route path='/coins' component={CryptoTable}/>
             </div>
-                        <Route exact path='/login' component={Login}/>
+            <Route exact path='/login' component={Login}/>
             <div className="col-md-2">
 
-            <Route path='/coins' component={Chat}/>
+            <Route path='/' component={Chat}/>
             </div>
           </div>
           </div>

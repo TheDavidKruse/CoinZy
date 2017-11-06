@@ -16,11 +16,11 @@ class CryptoTable extends Component {
     }
 
   }
+  
   componentDidMount(){
     let self = this;
     self.onInputChange= self.onInputChange.bind(self)
-    window.addEventListener('scroll', self.handleScrollDown.bind(self));
-    window.addEventListener('scroll', self.handleScrollUp.bind(self));
+    window.addEventListener('scroll', self.handleScroll.bind(self));
     this.props.coinActions.fetchCoins();
     var crypto = io.connect('http://socket.coincap.io');
     crypto.on('connection',function(socket){
@@ -48,23 +48,23 @@ onInputChange(e){
   }
 }
 
- handleScrollDown(e,state){
+ handleScroll(e,state){
+   console.log('window inner-height', window.innerHeight, 'window scrollY', window.scrollY, 'document body scrollheight', document.body.scrollHeight);
    if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
      this.setState({
        x:this.state.x+20
      })
-   }
- }
-
- handleScrollUp(e,state){
-   if (document.body.scrollTop === 0) {
+   } else if (window.scrollY === 0){
      this.setState({
-       x:this.state.x=41
+       x : 40
      })
    }
  }
   render () {
-    let splitCoins = this.props.coins.slice(this.state.y,this.state.x);
+    const styler = {
+      'text-align': 'right'
+    }
+    let splitCoins = this.props.coins.slice(0,this.state.x);
     let mappedCoins = splitCoins.map((coin,index) => <Coin key={index} coin={coin}/>)
     return (
       <div>
@@ -73,12 +73,12 @@ onInputChange(e){
   <thead>
     <tr>
       <th>Name</th>
-      <th>Market Cap</th>
-      <th>24hr VWAP</th>
-      <th>Price (USD)</th>
-      <th># Available</th>
-      <th>24hr Volume</th>
-      <th>24hr change</th>
+      <th style={styler}>Market Cap</th>
+      <th style={styler}>24hr VWAP</th>
+      <th style={styler}>Price (USD)</th>
+      <th style={styler}># Available</th>
+      <th style={styler}>24hr Volume</th>
+      <th style={styler}>24hr change</th>
     </tr>
   </thead>
   <tbody>
