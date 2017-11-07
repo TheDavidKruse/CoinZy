@@ -5,6 +5,7 @@ import CryptoTable from './components/CoinTable/CryptoTable';
 import Nav from './components/nav/navbar';
 import Login from './components/login/login';
 import 'bootstrap/dist/css/bootstrap.css';
+import { Container, Row, Col } from 'reactstrap';
 import Chat from './components/chat/chat'
 import {
   BrowserRouter as Router,
@@ -18,22 +19,22 @@ class App extends Component {
   render() {
     return (
         <Router>
-          <div>
-          <div className="row">
+          <Container>
+          <Row>
             <Route path='/' component={Nav}/>
-            </div>
+            </Row>
             <Route exact path='/' render={()=> <Redirect to='/coins'/>}/>
-            <div className="row">
-            <div className="col-md-10">
+            <Row>
+            <Col xs='10'>
             <Route path='/coins' component={CryptoTable}/>
-            </div>
+            </Col>
             <Route exact path='/login' component={Login}/>
-            <div className="col-md-2">
+            <Col xs='2'>
 
             <Route path='/' component={Chat}/>
-            </div>
-          </div>
-          </div>
+            </Col>
+          </Row>
+          </Container>
         </Router>
     );
   }
