@@ -12,7 +12,7 @@ class CryptoTable extends Component {
     super()
     this.state={
       x:40,
-      search:''
+      filter:'',
     }
 
   }
@@ -21,35 +21,34 @@ class CryptoTable extends Component {
     let self = this;
     self.onInputChange= self.onInputChange.bind(self)
     window.addEventListener('scroll', self.handleScroll.bind(self));
-    this.props.coinActions.fetchCoins();
+    this.props.coinActions.fetchCoins()
     var crypto = io.connect('http://socket.coincap.io');
     crypto.on('connection',function(socket){
       console.log('connected')
     })
-  crypto.on('trades', function (tradeMsg) {
-    var x = self.props.coins.find(function(e){
-      if (e.short === tradeMsg.coin){
-        self.props.coinActions.changeCoin(tradeMsg.msg);
-      }
-    })
-  })
-    crypto.on('global', function (globalMsg) {
+    crypto.on('trades', function (tradeMsg) {
+      var x = self.props.coins.find(function(e){
+        if (e.short === tradeMsg.coin){
+          self.props.coinActions.changeCoin(tradeMsg.msg);
+        }
+      })
     })
   }
 
   componentWillUnmount(){
     window.removeEventListener('scroll', this.handleScrollDown);
+    socket.disconnect();
 }
 onInputChange(e){
+  console.log(e.target.value)
   if(e.target.value.length >= 1){
-    this.props.coinActions.filterCoin(e.target.value)
-  }else{
-    this.props.coinActions.fetchCoins();
+    this.setState({
+      filter: e.target.value
+    })
   }
 }
 
  handleScroll(e,state){
-   console.log('window inner-height', window.innerHeight, 'window scrollY', window.scrollY, 'document body scrollheight', document.body.scrollHeight);
    if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
      this.setState({
        x:this.state.x+20
@@ -62,13 +61,14 @@ onInputChange(e){
  }
   render () {
     const styler = {
-      'text-align': 'right'
+      textAlign: 'right'
     }
-    let splitCoins = this.props.coins.slice(0,this.state.x);
-    let mappedCoins = splitCoins.map((coin,index) => <Coin key={index} coin={coin}/>)
+    let filteredCoins = this.props.coins.filter(coin => coin.long.toLowerCase().includes(this.state.filter.toLowerCase()))
+      .slice(0,this.state.x)
+      .map((coin,index) => <Coin key={index} coin={coin} index={index}/>)
     return (
       <div>
-      <input type="text" placeholder="Search Currencies" onChange={this.onInputChange}/>
+      <input type="text" placeholder="Search Currencies" onChange={this.onInputChange.bind(this)}/>
       <table className="table table-hover ">
   <thead>
     <tr>
@@ -82,7 +82,7 @@ onInputChange(e){
     </tr>
   </thead>
   <tbody>
-  {mappedCoins}
+  {filteredCoins}
   </tbody>
 </table></div>
     )

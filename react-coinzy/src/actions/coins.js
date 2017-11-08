@@ -7,6 +7,3 @@ export const changeCoin = (coin) => {
   return {type:'change',payload:coin}
 }
 
-export const filterCoin = (phrase) => {
-  return {type:'filter',payload:phrase}
-}
