@@ -15,11 +15,13 @@ import {
 } from 'react-router-dom';
 
 
+
 class App extends Component {
   render() {
+
     return (
         <Router>
-          <Container>
+          <Container fluid={true}>
           <Row>
             <Route path='/' component={Nav}/>
             </Row>

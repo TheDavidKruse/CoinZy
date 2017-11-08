@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, forceUpdate } from 'react';
 import * as coinActions from '../../actions/coins';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -30,6 +30,7 @@ class CryptoTable extends Component {
       var x = self.props.coins.find(function(e){
         if (e.short === tradeMsg.coin){
           self.props.coinActions.changeCoin(tradeMsg.msg);
+          
         }
       })
     })
@@ -40,7 +41,6 @@ class CryptoTable extends Component {
     socket.disconnect();
 }
 onInputChange(e){
-  console.log(e.target.value)
   if(e.target.value.length >= 1){
     this.setState({
       filter: e.target.value
@@ -84,7 +84,8 @@ onInputChange(e){
   <tbody>
   {filteredCoins}
   </tbody>
-</table></div>
+</table>
+</div>
     )
   }
 }

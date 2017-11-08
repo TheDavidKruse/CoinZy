@@ -7,7 +7,7 @@ const Coin = (props) => {
   }
 
   const Coin = withRouter(({history}) => (
-    <tr onClick={() => history.push(`/coin/dashboard/${props.index}`)}>
+    <tr onClick={() => history.push(`/coin/${props.index}`)}>
     <td>{props.coin.long} ({props.coin.short})</td>
     <td style={styler}>${props.coin.mktcap.toLocaleString()}</td>
     <td style={styler}>{props.coin.vwapData.toLocaleString()}</td>
