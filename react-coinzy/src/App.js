@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import './App.css';
+import './App.scss';
 import CryptoTable from './components/CoinTable/CryptoTable';
 import Nav from './components/nav/navbar';
 import Login from './components/login/login';

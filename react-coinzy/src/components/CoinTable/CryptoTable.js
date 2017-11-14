@@ -39,8 +39,9 @@ class CryptoTable extends Component {
   componentWillUnmount(){
     window.removeEventListener('scroll', this.handleScrollDown);
     socket.disconnect();
+    console.log('unmounted')
 }
-onInputChange(e){
+  onInputChange(e){
   if(e.target.value.length >= 1){
     this.setState({
       filter: e.target.value
@@ -48,7 +49,7 @@ onInputChange(e){
   }
 }
 
- handleScroll(e,state){
+  handleScroll(e,state){
    if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
      this.setState({
        x:this.state.x+20

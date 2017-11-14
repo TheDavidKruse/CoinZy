@@ -22,7 +22,6 @@ class Chat extends Component {
 
   componentDidMount(){
     this._handleMessageEvent()
-
   }
 
   _handleMessageEvent(){
@@ -30,6 +29,11 @@ class Chat extends Component {
       console.log("inbound message",inboundMessage)
       this.props.messageActions.AppendMessage(inboundMessage)
        })
+    }
+
+    componentWillUnmount(){
+      chat.close();
+      console.log('chat closed')
     }
 
     handleOnSubmit(ev) {
